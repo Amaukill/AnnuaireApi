@@ -20,7 +20,7 @@ namespace AnnuaireApi.Data
         public List<Contact> GetAllContact()
         {
             MySqlConnection conn = new MySqlConnection(@DB);  
-            string sql = " Select * From annuaire ";
+            string sql = " Select * From clients LIMIT 1000";
             MySqlCommand result = new MySqlCommand(sql, conn);
             conn.Open();
             List<Contact> contacts = new List<Contact>();
@@ -39,9 +39,9 @@ namespace AnnuaireApi.Data
             return contacts;
 
         }
-        public List<Contact> GetContactByParameters(string first = null, string last =null,string city=null,string street=null,int? zip = null )
+        public List<Contact> GetContactsByParameters(string first = null, string last =null,string city=null,string street=null,int? zip = null )
         {
-            string sql = " Select * From annuaire ";
+            string sql = " Select * From clients LIMIT 1000";
             MySqlConnection conn = new MySqlConnection(@DB);            
             MySqlCommand result = new MySqlCommand(sql, conn);
             SqlParameter param = new SqlParameter();

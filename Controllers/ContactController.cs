@@ -27,6 +27,12 @@ namespace AnnuaireApi.Controllers
         {
             return db.GetAllContact();
         }
+        [Route("GetContactsByParameters")]
+        [HttpGet]
+        public ActionResult<List<Contact>> GetContactsByParameters(string first=null , string last=null , string city=null , string street = null , int? zip = null)
+        {
+            return db.GetContactsByParameters(first,last,city,street,zip);
+        }
 
     }
 }

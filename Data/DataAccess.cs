@@ -17,10 +17,10 @@ namespace AnnuaireApi.Data
         {
             DB = configuration.GetConnectionString("DBconnect");
         }
-        public List<Contact> GetAllContact()
+        public List<Contact> GetAllContacts()
         {
             MySqlConnection conn = new MySqlConnection(@DB);  
-            string sql = " Select * From clients LIMIT 1000";
+            string sql = " Select * From clients ";
             MySqlCommand result = new MySqlCommand(sql, conn);
             conn.Open();
             List<Contact> contacts = new List<Contact>();
@@ -41,10 +41,35 @@ namespace AnnuaireApi.Data
         }
         public List<Contact> GetContactsByParameters(string first = null, string last =null,string city=null,string street=null,int? zip = null )
         {
-            string sql = " Select * From clients LIMIT 1000";
+            string sql = " Select * From clients ";
+            if (first != null || last != null || city != null || street != null || zip != null)
+            {
+                sql += "where ";
+                if(first != null)
+                {
+                    sql += $"first like \"%{first}%\" and ";
+                }
+                if(last != null)
+                {
+                    sql += $"last like \"%{last}%\" and ";
+                }
+                if (city != null)
+                {
+                    sql += $"city like \"%{city}%\" and ";
+                }
+                if (street != null)
+                {
+                    sql += $"street like \"%{street}%\" and ";
+                }
+                if (zip != null)
+                {
+                    sql += $"zip like \"%{zip}%\" and ";
+                }
+                sql = sql.Remove(sql.LastIndexOf("and"),3);
+            }
+
             MySqlConnection conn = new MySqlConnection(@DB);            
             MySqlCommand result = new MySqlCommand(sql, conn);
-            SqlParameter param = new SqlParameter();
             conn.Open();
             List<Contact> contacts = new List<Contact>();
             MySqlDataReader reader = result.ExecuteReader();

@@ -21,11 +21,11 @@ namespace AnnuaireApi.Controllers
            db = new DataAccess(configuration);
         }
         
-        [Route("GetAllContact")]
+        [Route("GetAllContacts")]
         [HttpGet]
-        public ActionResult<List<Contact>> GetAllContact()
+        public ActionResult<List<Contact>> GetAllContacts()
         {
-            return db.GetAllContact();
+            return db.GetAllContacts();
         }
         [Route("GetContactsByParameters")]
         [HttpGet]
